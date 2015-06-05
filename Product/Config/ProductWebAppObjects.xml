@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+
+  <object id="productController" scope="request" singleton="false" type="ProductWebApp.Controllers.ProductController, ProductWebApp">
+    <property name="ProductService" ref="productService" />
+  </object>
+
+  <object id="productService" type="ProductCore.Services.Impl.ProductService, ProductCore">
+    <property name="ProductDao" ref="productDao" />
+  </object>
+
+  <object id="productDao" type="ProductCore.Dao.Impl.ProductDao, ProductCore">
+    <property name="AdoTemplate" ref="adoTemplate" />
+  </object>
+
+
+</objects>
