@@ -68,7 +68,7 @@
                 sortable: true,
                 filterable: true,
                 editable: "inline",
-                toolbar: ["create"],
+                toolbar: [{ name: "create",text:"新增" }],
                 pageable: {
                     input: true,
                     numeric: false
@@ -78,7 +78,7 @@
                     { field: "Name", title: "產品名稱", width: "100px" },
                     { field: "Price", title: "產品價格", width: "100px" },
                     { field: "Description", title: "產品描述", width: "160px" },
-                    { command: ["edit", "destroy"], title: "Command", width: "250px" }
+                    { command: [{ name: "edit", text: "修改" }, { name: "destroy",text:"刪除"}], title: "Command", width: "250px" }
                 ]
             });
 
