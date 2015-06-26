@@ -115,7 +115,7 @@
                             fields: {
                                 ID: { type: "number", editable: true, nullable: false, validation: { required: true, min: 1 } },
                                 Name: { type: "string", editable: true, nullable: false, validation: { required: true } },
-                                Price: { type: "number", editable: true, nullable: false, validation: { required: true } },
+                                Price: { type: "number", editable: true, nullable: false, validation: { required: true, min: 1 } },
                                 Description: { type: "string", editable: true, nullable: false, validation: { required: true } }
                             }
                         }

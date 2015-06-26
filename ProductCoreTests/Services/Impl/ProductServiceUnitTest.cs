@@ -43,10 +43,10 @@ namespace ProductCoreTests.Services.Impl
             Assert.IsNotNull(dbProduct);
             Assert.AreEqual(product.Name, dbProduct.Name);
 
-            Console.WriteLine("課程編號為 = " + dbProduct.ID);
-            Console.WriteLine("課程名稱為 = " + dbProduct.Name);
-            Console.WriteLine("課程名稱為 = " + dbProduct.Price);
-            Console.WriteLine("課程描述為 = " + dbProduct.Description);
+            Console.WriteLine("產品編號為 = " + dbProduct.ID);
+            Console.WriteLine("產品名稱為 = " + dbProduct.Name);
+            Console.WriteLine("產品價格為 = " + dbProduct.Price);
+            Console.WriteLine("產品描述為 = " + dbProduct.Description);
 
             ProductService.DeleteProduct(dbProduct);
             dbProduct = ProductService.GetProductByName(product.Name);
