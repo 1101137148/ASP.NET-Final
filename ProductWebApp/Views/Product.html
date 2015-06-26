@@ -14,8 +14,9 @@
     <script src="http://cdn.kendostatic.com/2015.2.624/js/jszip.min.js"></script>
     <script src="http://cdn.kendostatic.com/2015.2.624/js/messages/kendo.messages.zh-TW.min.js"></script>
     
+    
+
     <script type="text/x-kendo-template" id="windowTemplate">
-        <p>是否刪除<strong>#= Name #</strong> ? </p> 
         <button class="k-button" id="yesButton">是</button>
         <button class="k-button" id="noButton"> 否</button>
     </script>
@@ -112,10 +113,10 @@
                         model: {
                             id: "ID",
                             fields: {
-                                ID: { type: "number", editable: true, nullable: false},
-                                Name: { type: "string", editable: true, nullable: false },
-                                Price: { type: "number", editable: true, nullable: false },
-                                Description: { type: "string", editable:true, nullable:false }
+                                ID: { type: "number", editable: true, nullable: false, validation: { required: true, min: 1 } },
+                                Name: { type: "string", editable: true, nullable: false, validation: { required: true } },
+                                Price: { type: "number", editable: true, nullable: false, validation: { required: true } },
+                                Description: { type: "string", editable: true, nullable: false, validation: { required: true } }
                             }
                         }
                     }
@@ -162,6 +163,7 @@
             }).data("kendoGrid");
 
         });
+
 
     </script>
 </body>
