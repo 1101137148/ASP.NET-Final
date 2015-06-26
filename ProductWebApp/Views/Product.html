@@ -4,7 +4,7 @@
     <title>Product</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="http://cdn.kendostatic.com/2015.2.624/styles/kendo.common-material.min.css" />
-    <link id="myTheme" rel="stylesheet" href="http://cdn.kendostatic.com/2015.2.624/styles/kendo.blueopal.min.css" />
+    <link rel="stylesheet" href="http://cdn.kendostatic.com/2015.2.624/styles/kendo.blueopal.min.css" />
     <link rel="stylesheet" href="http://cdn.kendostatic.com/2015.2.624/styles/kendo.dataviz.min.css" />
     <link rel="stylesheet" href="http://cdn.kendostatic.com/2015.2.624/styles/kendo.dataviz.material.min.css" />
 
@@ -17,67 +17,26 @@
     
 
     <script type="text/x-kendo-template" id="windowTemplate">
-        <p>是否刪除<strong>#= Name #</strong> ? </p> 
         <button class="k-button" id="yesButton">是</button>
         <button class="k-button" id="noButton"> 否</button>
     </script>
 </head>
 <body>
-    
     <div class="content-pane">
-        <div id="toolbar"></div>
-        <br>
         <div id="grid"></div>
     </div>
     <div id="window"></div>
     <script>
         
         $(document).ready(function () {
-            function onSelect(e) {
-                var dataItem = this.dataItem(e.item);
-                //console.log("event :: select (" + dataItem.text + " : " + dataItem.value + ")");
-                $("#myTheme").attr("href", "http://cdn.kendostatic.com/2015.2.624/styles/kendo." + dataItem.text + ".min.css");
-            };
-
             var windowTemplate = kendo.template($("#windowTemplate").html());
             var UrlBase = "/";
             var window = $("#window").kendoWindow({
                 title: "你確定是否要刪除該產品資訊?",
                 visible: false, //the window will not appear before its .open method is called
-                width: "350px",
-                height: "140px",
+                width: "400px",
+                height: "200px",
             }).data("kendoWindow");
-
-            $("#toolbar").kendoToolBar({
-                items: [
-                    { template: "<h1>　產品資料維護系統</h1>" },
-
-                    { type: "separator" },
-                    {
-                        template: "<input id='dropdown' style='width: 150px;' />",
-                        attributes: { style: "float: right; margin-top: .8em;" }
-                    },
-                    {
-                        template: "<h2>Theme　</h2>",
-                        attributes: { style: "float: right;" }
-                    },
-                    
-                ]
-            });
-
-            $("#dropdown").kendoDropDownList({
-                //optionLabel: "請選擇樣式",
-                dataTextField: "text",
-                dataValueField: "value",
-                select: onSelect,
-                dataSource: [
-                    { text: "blueopal", value: "blueopal" },
-                    { text: "office365", value: "office365" },
-                    { text: "bootstrap", value: "bootstrap" },
-                    { text: "default", value: "default" },
-                    { text: "moonlight", value: "moonlight" }
-                ]
-            });
 
             $("#grid").kendoGrid({
                 dataSource: {
@@ -114,10 +73,10 @@
                         model: {
                             id: "ID",
                             fields: {
-                                ID: { type: "number", editable: true, nullable: false, validation: { required: true } },
-                                Name: { type: "string", editable: true, nullable: false, validation: { required: true } },
-                                Price: { type: "number", editable: true, nullable: false, validation: { required: true } },
-                                Description: { type: "string", editable: true, nullable: false, validation: { required: true } }
+                                ID: { type: "number", editable: true, nullable: false},
+                                Name: { type: "string", editable: true, nullable: false },
+                                Price: { type: "number", editable: true, nullable: false },
+                                Description: { type: "string", editable:true, nullable:false }
                             }
                         }
                     }
@@ -141,15 +100,15 @@
                     { field: "Description", title: "產品描述", width: "160px" },
                     {
                         command: [{ name: "edit", text: "修改" }, {
-                            name: "Delete", text: "刪除", imageClass: "k-icon k-i-close", click: function (e) {  //add a click event listener on the delete button
-                                var tr = $(e.target).closest("tr"); //get the row for deletion
-                                var data = this.dataItem(tr); //get the row data so it can be referred later
-                                window.content(windowTemplate(data)); //send the row data object to the template and render it
+                            name: "Delete", text: "刪除", click: function (e) {  //add a click event listener on the delete button
+                                var dataItem = this.dataItem($(e.target).closest("tr"));
+                                var dataSource = $("#grid").data("kendoGrid").dataSource;
+                                window.content(windowTemplate(dataItem)); //send the row data object to the template and render it
                                 window.open().center();
 
                                 $("#yesButton").click(function () {
-                                    var grid = $("#grid").data("kendoGrid");
-                                    grid.dataSource.remove(data)  //prepare a "destroy" request 
+                                    
+                                    grid.dataSource.remove(dataItem) //prepare a "destroy" request
                                     grid.dataSource.sync()  //actually send the request (might be ommited if the autoSync option is enabled in the dataSource)
                                     window.close();
                                 })
