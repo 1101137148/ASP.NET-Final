@@ -114,10 +114,10 @@
                         model: {
                             id: "ID",
                             fields: {
-                                ID: { type: "number", editable: true, nullable: false},
-                                Name: { type: "string", editable: true, nullable: false },
-                                Price: { type: "number", editable: true, nullable: false },
-                                Description: { type: "string", editable:true, nullable:false }
+                                ID: { type: "number", editable: true, nullable: false, validation: { required: true } },
+                                Name: { type: "string", editable: true, nullable: false, validation: { required: true } },
+                                Price: { type: "number", editable: true, nullable: false, validation: { required: true } },
+                                Description: { type: "string", editable: true, nullable: false, validation: { required: true } }
                             }
                         }
                     }
